@@ -8,6 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+object Routes {
+    const val HOME = "home"
+    const val PRODUCTOS = "productos"
+    const val VENTAS = "ventas"
+    const val COMPRAS = "compras"
+    const val CIERRE = "cierre"
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopBar(nav: NavController) {
@@ -23,12 +31,4 @@ fun AppTopBar(nav: NavController) {
             }
         }
     )
-}
-
-object Routes {
-    const val HOME = "home"
-    const val PRODUCTOS = "productos"
-    const val VENTAS = "ventas"
-    const val COMPRAS = "compras"
-    const val CIERRE = "cierre"
 }
