@@ -24,10 +24,10 @@ fun AppNav(modifier: Modifier = Modifier) {
             composable(Routes.HOME) { HomeScreen() }
 
             // Placeholders (Kevin los reemplaza en su rama)
-            composable(Routes.PRODUCTOS) { CenterText("Productos") }
-            composable(Routes.VENTAS)    { CenterText("Ventas") }
-            composable(Routes.COMPRAS)   { CenterText("Compras") }
-            composable(Routes.CIERRE)    { CenterText("Cierre / Reportes") }
+            composable(Routes.PRODUCTOS) { com.bodeapp.ui.ProductosScreen() }
+            composable(Routes.VENTAS) { com.bodeapp.ui.VentasScreen() }
+            composable(Routes.COMPRAS) { com.bodeapp.ui.ComprasScreen() }
+            composable(Routes.CIERRE) { com.bodeapp.ui.CierreScreen() }
         }
     }
 }
