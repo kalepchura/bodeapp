@@ -1,36 +1,44 @@
 package com.bodeapp.ui
 
-import android.annotation.SuppressLint
+import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.bodeapp.model.Producto
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bodeapp.data.AppDatabase
+import com.bodeapp.data.ProductoEntity
+import kotlinx.coroutines.launch
 
-@SuppressLint("MutableCollectionMutableState")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductosScreen() {
+    val context = LocalContext.current
+    val db = remember { AppDatabase.getDatabase(context) }
+    val dao = db.productoDao()
+    val scope = rememberCoroutineScope()
+
     var nombre by remember { mutableStateOf("") }
     var precio by remember { mutableStateOf("") }
     var stock by remember { mutableStateOf("") }
+    var productos by remember { mutableStateOf(listOf<ProductoEntity>()) }
 
-    var listaProductos by remember { mutableStateOf(mutableListOf<Producto>()) }
+    LaunchedEffect(Unit) {
+        productos = dao.getAll()
+    }
 
     Column(
-        modifier = Modifier
+        Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-
         Text("Registrar Producto", style = MaterialTheme.typography.titleLarge)
-
         Spacer(Modifier.height(12.dp))
 
         OutlinedTextField(
@@ -65,9 +73,15 @@ fun ProductosScreen() {
         Button(
             onClick = {
                 if (nombre.isNotBlank() && precio.isNotBlank() && stock.isNotBlank()) {
-                    val nuevoProducto = Producto(nombre, precio.toDouble(), stock.toInt())
-                    listaProductos.add(nuevoProducto)
-                    listaProductos = listaProductos.toMutableList()
+                    val nuevo = ProductoEntity(
+                        nombre = nombre,
+                        precio = precio.toDouble(),
+                        stock = stock.toInt()
+                    )
+                    scope.launch {
+                        dao.insert(nuevo)
+                        productos = dao.getAll()
+                    }
                     nombre = ""
                     precio = ""
                     stock = ""
@@ -80,20 +94,21 @@ fun ProductosScreen() {
 
         Spacer(Modifier.height(24.dp))
 
-        Text("Lista de Productos", style = MaterialTheme.typography.titleMedium)
+        Text("Productos registrados", style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.height(8.dp))
 
         LazyColumn {
-            items(listaProductos) { producto ->
+            items(productos) { p ->
                 Card(
-                    modifier = Modifier
+                    Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp)
+                        .padding(vertical = 4.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
-                    Column(modifier = Modifier.padding(12.dp)) {
-                        Text("Nombre: ${producto.nombre}")
-                        Text("Precio: S/. ${producto.precio}")
-                        Text("Stock: ${producto.stock}")
+                    Column(Modifier.padding(12.dp)) {
+                        Text(p.nombre, style = MaterialTheme.typography.bodyLarge)
+                        Text("Precio: S/. ${p.precio}")
+                        Text("Stock: ${p.stock}")
                     }
                 }
             }
