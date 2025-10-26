@@ -21,7 +21,8 @@ fun AppNav(modifier: Modifier = Modifier) {
             startDestination = Routes.HOME,
             modifier = modifier.then(Modifier.padding(inner))
         ) {
-            composable(Routes.HOME) { HomeScreen() }
+            composable(Routes.HOME) { com.bodeapp.ui.HomeScreen() }
+
 
             // Placeholders (Kevin los reemplaza en su rama)
             composable(Routes.PRODUCTOS) { com.bodeapp.ui.ProductosScreen() }
