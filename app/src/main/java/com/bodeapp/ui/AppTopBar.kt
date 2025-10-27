@@ -19,7 +19,7 @@ object Routes {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopBar(nav: NavController) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = { Text("BodeApp") },
         actions = {
             Row(Modifier.padding(end = 8.dp)) {
@@ -32,3 +32,4 @@ fun AppTopBar(nav: NavController) {
         }
     )
 }
+
