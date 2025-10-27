@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
+
 }
 
 
@@ -61,9 +62,14 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
 
     // Room (persistencia local)
+
+    implementation(libs.androidx.room.ktx)
+
+    implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+
 
 
 
@@ -76,3 +82,4 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
+
