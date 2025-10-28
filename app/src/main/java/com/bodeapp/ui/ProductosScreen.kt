@@ -13,7 +13,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bodeapp.data.AppDatabase
+import com.bodeapp.data.local.AppDatabase
 import com.bodeapp.data.ProductoEntity
 import kotlinx.coroutines.launch
 

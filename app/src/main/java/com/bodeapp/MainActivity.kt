@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.bodeapp.navigation.AppNav
+import com.bodeapp.data.local.DatabaseProvider
+import com.bodeapp.ui.navigation.AppNav
 import com.bodeapp.ui.theme.BodeAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,3 +19,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
+
