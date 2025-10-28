@@ -19,7 +19,6 @@ data class Venta(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VentasScreen() {
-    // 🔹 Simulación de productos cargados (puedes conectar luego a Room)
     var productos by remember {
         mutableStateOf(
             mutableListOf(
@@ -39,7 +38,6 @@ fun VentasScreen() {
         Text("Registrar Venta", style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(12.dp))
 
-        // 🔸 Dropdown para seleccionar producto
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = { expanded = !expanded }
@@ -69,7 +67,6 @@ fun VentasScreen() {
 
         Spacer(Modifier.height(8.dp))
 
-        // 🔸 Campo de cantidad
         OutlinedTextField(
             value = cantidad,
             onValueChange = { cantidad = it },
@@ -80,7 +77,6 @@ fun VentasScreen() {
 
         Spacer(Modifier.height(12.dp))
 
-        // 🔸 Botón para agregar venta
         Button(
             onClick = {
                 val qty = cantidad.toIntOrNull() ?: 0
@@ -108,7 +104,6 @@ fun VentasScreen() {
 
         Spacer(Modifier.height(24.dp))
 
-        // 🔹 Lista de ventas
         Text("Ventas registradas:", style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.height(8.dp))
         LazyColumn {
