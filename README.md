@@ -14,9 +14,9 @@
 
 \## Integrantes
 
-\- Jhon Chura — GitHub: @kalepchura
+\- Jhon Chura — Líder técnico - GitHub: @kalepchura 
 
-\- Kevin Barbaran — GitHub: @barbaran
+\- Kevin Barbaran — Diseñador UI/UX GitHub: @barbaran  
 
 \## Descripción
 
@@ -42,7 +42,7 @@
 \## Enlace al prototipo (Figma)
 \-> [ https://www.figma.com/make/DwpkR3gByQmoMauCKQ7jll/BodeApp-Dise%C3%B1o-Prototipo?fullscreen=1 ]
 
-\## 🧾 Capturas de la app
+\## Capturas de la app
 \- (Inserta imágenes del emulador o de tu dispositivo)
 \## Ejemplo:
 \- [Pantalla Home]
@@ -50,6 +50,10 @@
 
 \## Instrucciones de ejecución
 \- 1. Clonar el repositorio  
+
 \- git clone https://github.com/kalepchura/bodeapp.git
+
 \- Abrir en Android Studio.
+
 \- Ejecutar en emulador
+
