@@ -45,6 +45,10 @@ public final class ProductoDao_Impl implements ProductoDao {
 
   private final SharedSQLiteStatement __preparedStmtOfSetStock;
 
+  private final SharedSQLiteStatement __preparedStmtOfIncrementStock;
+
+  private final SharedSQLiteStatement __preparedStmtOfDecrementStock;
+
   public ProductoDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
     this.__insertionAdapterOfProducto = new EntityInsertionAdapter<Producto>(__db) {
@@ -111,6 +115,22 @@ public final class ProductoDao_Impl implements ProductoDao {
       @NonNull
       public String createQuery() {
         final String _query = "UPDATE Producto SET stock = ? WHERE id = ?";
+        return _query;
+      }
+    };
+    this.__preparedStmtOfIncrementStock = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "UPDATE Producto SET stock = stock + ? WHERE id = ?";
+        return _query;
+      }
+    };
+    this.__preparedStmtOfDecrementStock = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "UPDATE Producto SET stock = stock - ? WHERE id = ?";
         return _query;
       }
     };
@@ -203,7 +223,7 @@ public final class ProductoDao_Impl implements ProductoDao {
   }
 
   @Override
-  public Object setStock(final int id, final int stock,
+  public Object setStock(final int id, final int newStock,
       final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
@@ -211,7 +231,7 @@ public final class ProductoDao_Impl implements ProductoDao {
       public Unit call() throws Exception {
         final SupportSQLiteStatement _stmt = __preparedStmtOfSetStock.acquire();
         int _argIndex = 1;
-        _stmt.bindLong(_argIndex, stock);
+        _stmt.bindLong(_argIndex, newStock);
         _argIndex = 2;
         _stmt.bindLong(_argIndex, id);
         try {
@@ -231,8 +251,64 @@ public final class ProductoDao_Impl implements ProductoDao {
   }
 
   @Override
-  public Flow<List<Producto>> getActivos() {
-    final String _sql = "SELECT * FROM Producto WHERE activo = 1 ORDER BY nombre";
+  public Object incrementStock(final int id, final int cantidad,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfIncrementStock.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, cantidad);
+        _argIndex = 2;
+        _stmt.bindLong(_argIndex, id);
+        try {
+          __db.beginTransaction();
+          try {
+            _stmt.executeUpdateDelete();
+            __db.setTransactionSuccessful();
+            return Unit.INSTANCE;
+          } finally {
+            __db.endTransaction();
+          }
+        } finally {
+          __preparedStmtOfIncrementStock.release(_stmt);
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Object decrementStock(final int id, final int cantidad,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDecrementStock.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, cantidad);
+        _argIndex = 2;
+        _stmt.bindLong(_argIndex, id);
+        try {
+          __db.beginTransaction();
+          try {
+            _stmt.executeUpdateDelete();
+            __db.setTransactionSuccessful();
+            return Unit.INSTANCE;
+          } finally {
+            __db.endTransaction();
+          }
+        } finally {
+          __preparedStmtOfDecrementStock.release(_stmt);
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Flow<List<Producto>> getAll() {
+    final String _sql = "SELECT * FROM Producto ORDER BY nombre ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"Producto"}, new Callable<List<Producto>>() {
       @Override
@@ -279,8 +355,8 @@ public final class ProductoDao_Impl implements ProductoDao {
   }
 
   @Override
-  public Flow<List<Producto>> getAll() {
-    final String _sql = "SELECT * FROM Producto ORDER BY nombre";
+  public Flow<List<Producto>> getActivos() {
+    final String _sql = "SELECT * FROM Producto WHERE activo = 1 ORDER BY nombre ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"Producto"}, new Callable<List<Producto>>() {
       @Override
@@ -328,7 +404,7 @@ public final class ProductoDao_Impl implements ProductoDao {
 
   @Override
   public Object findById(final int id, final Continuation<? super Producto> $completion) {
-    final String _sql = "SELECT * FROM Producto WHERE id = ? LIMIT 1";
+    final String _sql = "SELECT * FROM Producto WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
     _statement.bindLong(_argIndex, id);

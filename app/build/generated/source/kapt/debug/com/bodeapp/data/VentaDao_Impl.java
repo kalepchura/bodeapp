@@ -146,7 +146,7 @@ public final class VentaDao_Impl implements VentaDao {
 
   @Override
   public Flow<List<Venta>> ventasDelDia() {
-    final String _sql = "SELECT * FROM Venta WHERE date(timestamp) = date('now') ORDER BY timestamp DESC";
+    final String _sql = "SELECT * FROM Venta WHERE date(timestamp) = date('now', 'localtime') ORDER BY timestamp DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"Venta"}, new Callable<List<Venta>>() {
       @Override
@@ -205,6 +205,38 @@ public final class VentaDao_Impl implements VentaDao {
     } else {
       _statement.bindString(_argIndex, fecha);
     }
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<Double>() {
+      @Override
+      @Nullable
+      public Double call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final Double _result;
+          if (_cursor.moveToFirst()) {
+            final Double _tmp;
+            if (_cursor.isNull(0)) {
+              _tmp = null;
+            } else {
+              _tmp = _cursor.getDouble(0);
+            }
+            _result = _tmp;
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Object totalDelDia(final Continuation<? super Double> $completion) {
+    final String _sql = "SELECT SUM(total) FROM Venta WHERE date(timestamp) = date('now', 'localtime')";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
     return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<Double>() {
       @Override
