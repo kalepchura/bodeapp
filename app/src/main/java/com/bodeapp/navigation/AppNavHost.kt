@@ -25,7 +25,7 @@ fun AppNavHost(db: AppDatabase) {
         }
 
         composable("ventas") {
-            SalesScreen(db = db)
+            SalesScreen(db = db, onNavigate = { navController.navigate(it) })
         }
 
         composable("compras") {

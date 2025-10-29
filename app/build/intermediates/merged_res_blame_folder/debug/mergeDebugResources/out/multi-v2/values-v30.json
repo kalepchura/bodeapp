@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bodeapp-mergeDebugResources-59:/values-v30/values-v30.xml",
+            "outputFile": "com.bodeapp-mergeDebugResources-60:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\JHON\\.gradle\\caches\\8.13\\transforms\\b3492ba902943d9b5da28f8f190fa167\\transformed\\material3\\res\\values-v30\\values-v30.xml",
+                    "source": "C:\\Users\\ADAMCIN\\.gradle\\caches\\8.13\\transforms\\b3492ba902943d9b5da28f8f190fa167\\transformed\\material3\\res\\values-v30\\values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
