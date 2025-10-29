@@ -38,6 +38,10 @@ public final class BodegaRepository {
         return null;
     }
     
+    /**
+     * Agrega un nuevo producto
+     * @return ID del producto insertado
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object addProducto(@org.jetbrains.annotations.NotNull()
     com.bodeapp.model.Producto producto, @org.jetbrains.annotations.NotNull()
@@ -45,6 +49,9 @@ public final class BodegaRepository {
         return null;
     }
     
+    /**
+     * Actualiza un producto existente
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object updateProducto(@org.jetbrains.annotations.NotNull()
     com.bodeapp.model.Producto producto, @org.jetbrains.annotations.NotNull()
@@ -52,24 +59,55 @@ public final class BodegaRepository {
         return null;
     }
     
+    /**
+     * Elimina o marca como inactivo un producto
+     * - Si el producto tiene historial (ventas/compras), se marca como inactivo
+     * - Si no tiene historial, se elimina físicamente
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object deleteOrMarkProducto(int productoId, @org.jetbrains.annotations.NotNull()
     kotlin.coroutines.Continuation<? super kotlin.Unit> $completion) {
         return null;
     }
     
+    /**
+     * Registra una nueva venta
+     * Pasos:
+     * 1. Valida que el producto existe
+     * 2. Valida cantidad > 0
+     * 3. Valida stock suficiente
+     * 4. Calcula precio y total
+     * 5. Genera timestamp
+     * 6. Inserta venta y reduce stock (transacción atómica)
+     *
+     * El Flow ventasDelDia se actualiza automáticamente
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object registerVenta(int productoId, int cantidad, @org.jetbrains.annotations.NotNull()
     kotlin.coroutines.Continuation<? super kotlin.Unit> $completion) {
         return null;
     }
     
+    /**
+     * Registra una nueva compra
+     * Pasos:
+     * 1. Valida cantidad > 0
+     * 2. Valida costo > 0
+     * 3. Calcula total
+     * 4. Genera timestamp
+     * 5. Inserta compra y aumenta stock (transacción atómica)
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object registerCompra(int productoId, int cantidad, double costoUnitario, @org.jetbrains.annotations.NotNull()
     kotlin.coroutines.Continuation<? super kotlin.Unit> $completion) {
         return null;
     }
     
+    /**
+     * Obtiene el total de ventas por fecha específica
+     * @param fechaISO Formato: "YYYY-MM-DD" (ej: "2025-10-28")
+     * @return Total de ventas o 0.0 si no hay ventas
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object totalVentasPorFecha(@org.jetbrains.annotations.NotNull()
     java.lang.String fechaISO, @org.jetbrains.annotations.NotNull()
@@ -77,6 +115,11 @@ public final class BodegaRepository {
         return null;
     }
     
+    /**
+     * Obtiene el total de compras por fecha específica
+     * @param fechaISO Formato: "YYYY-MM-DD" (ej: "2025-10-28")
+     * @return Total de compras o 0.0 si no hay compras
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object totalComprasPorFecha(@org.jetbrains.annotations.NotNull()
     java.lang.String fechaISO, @org.jetbrains.annotations.NotNull()

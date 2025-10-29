@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bodeapp-mergeDebugResources-59:/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "com.bodeapp-mergeDebugResources-60:/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\JHON\\.gradle\\caches\\8.13\\transforms\\22a863d3c7ea6aec4d9c50c59a0da51d\\transformed\\appcompat-1.7.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "source": "C:\\Users\\ADAMCIN\\.gradle\\caches\\8.13\\transforms\\22a863d3c7ea6aec4d9c50c59a0da51d\\transformed\\appcompat-1.7.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

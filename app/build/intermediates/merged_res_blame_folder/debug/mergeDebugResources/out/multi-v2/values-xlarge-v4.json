@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bodeapp-mergeDebugResources-59:/values-xlarge-v4/values-xlarge-v4.xml",
+            "outputFile": "com.bodeapp-mergeDebugResources-60:/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\JHON\\.gradle\\caches\\8.13\\transforms\\22a863d3c7ea6aec4d9c50c59a0da51d\\transformed\\appcompat-1.7.0\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "source": "C:\\Users\\ADAMCIN\\.gradle\\caches\\8.13\\transforms\\22a863d3c7ea6aec4d9c50c59a0da51d\\transformed\\appcompat-1.7.0\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",
