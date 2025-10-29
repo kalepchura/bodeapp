@@ -29,7 +29,7 @@ fun AppNavHost(db: AppDatabase) {
         }
 
         composable("compras") {
-            PurchasesScreen(db = db)
+            PurchasesScreen(db = db, onNavigate = { navController.navigate(it) })
         }
 
         composable("reportes") {
